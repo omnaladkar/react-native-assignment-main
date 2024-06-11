@@ -16,13 +16,18 @@ import {
   TextInput,
   View,
   useColorScheme,
+  Platform
 } from 'react-native';
-
+import SplashScreen from 'react-native-splash-screen'
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {addTodoItem, getTodoItems} from './helper';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  useEffect(()=>{ 
+    
+    SplashScreen.hide();
+  },[])
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
