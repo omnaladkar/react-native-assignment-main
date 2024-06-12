@@ -21,7 +21,12 @@ import {
 import SplashScreen from 'react-native-splash-screen'
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {addTodoItem, getTodoItems} from './helper';
-import TodoScreen from './TodoScreen';
+import MyTabs from './src/Navigation/navigation'
+ 
+
+import { NavigationContainer } from '@react-navigation/native';
+
+const Tab = createBottomTabNavigator();
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   useEffect(()=>{ 
@@ -44,7 +49,9 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <TodoScreen/>
+        <NavigationContainer>
+    <MyTabs/>
+    </NavigationContainer>
     </SafeAreaView>
   );
 }
