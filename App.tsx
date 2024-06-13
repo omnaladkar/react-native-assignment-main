@@ -18,15 +18,23 @@ import {
   useColorScheme,
   Platform
 } from 'react-native';
+
+
+import { Provider } from 'react-redux';
+import store from './redux';
 import SplashScreen from 'react-native-splash-screen'
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {addTodoItem, getTodoItems} from './helper';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MyTabs from './src/Navigation/navigation'
- 
+import Profile from './src/Screens/Profile'
+ import Todo from  './src/Screens/TodoScreen'
 
 import { NavigationContainer } from '@react-navigation/native';
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+// const Tab = createBottomTabNavigator();
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   useEffect(()=>{ 
@@ -45,14 +53,24 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
+      <Provider store={store}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
         <NavigationContainer>
-    <MyTabs/>
+    {/* <MyTabs/> */}
+    <Stack.Navigator initialRouteName="Home">
+   
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Todo" component={Todo} options={({ route }) => ({ title: route.params.item.text })} />
+
+    
     </NavigationContainer>
+    </Stack.Navigator>
+    {/* <TodoScreen/> */}
     </SafeAreaView>
+    </Provider>
   );
 }
 
